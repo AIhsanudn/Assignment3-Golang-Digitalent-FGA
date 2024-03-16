@@ -38,6 +38,23 @@
         margin-left: 10px;
     }
 
+    .status-text {
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    .status-aman {
+        color: green;
+    }
+
+    .status-siaga {
+        color: orange;
+    }
+
+    .status-bahaya {
+        color: red;
+    }
+
     .refresh-btn {
         background-color: #4CAF50;
         color: white;
@@ -59,10 +76,12 @@
     <div class="status" id="status-water">
         <label>Status Air:</label>
         <span class="status-value" id="status-water-value"></span>
+        <div class="status-text" id="status-water-text"></div>
     </div>
     <div class="status" id="status-wind">
         <label>Status Angin:</label>
         <span class="status-value" id="status-wind-value"></span>
+        <div class="status-text" id="status-wind-text"></div>
     </div>
     <button class="refresh-btn" onclick="refreshStatus()">Refresh</button>
 </div>
@@ -85,6 +104,32 @@
         // Update nilai status angin
         var statusWind = document.getElementById('status-wind-value');
         statusWind.textContent = status.wind + ' meter/detik';
+
+        // Tentukan status air
+        var statusWaterText = document.getElementById('status-water-text');
+        if (status.water < 5) {
+            statusWaterText.textContent = 'Aman';
+            statusWaterText.className = 'status-text status-aman';
+        } else if (status.water >= 6 && status.water <= 8) {
+            statusWaterText.textContent = 'Siaga';
+            statusWaterText.className = 'status-text status-siaga';
+        } else {
+            statusWaterText.textContent = 'Bahaya';
+            statusWaterText.className = 'status-text status-bahaya';
+        }
+
+        // Tentukan status angin
+        var statusWindText = document.getElementById('status-wind-text');
+        if (status.wind < 6) {
+            statusWindText.textContent = 'Aman';
+            statusWindText.className = 'status-text status-aman';
+        } else if (status.wind >= 7 && status.wind <= 15) {
+            statusWindText.textContent = 'Siaga';
+            statusWindText.className = 'status-text status-siaga';
+        } else {
+            statusWindText.textContent = 'Bahaya';
+            statusWindText.className = 'status-text status-bahaya';
+        }
     }
 
     function refreshStatus() {
